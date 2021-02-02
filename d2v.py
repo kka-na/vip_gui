@@ -7,6 +7,7 @@ import cv2
 from cv_bridge import CvBridge, CvBridgeError
 import math
 from time import sleep
+import signal
 
 import rospy
 import rospkg
@@ -46,9 +47,13 @@ class WindowClass(QMainWindow, form_class) :
 	def __init__(self) : 
 		super(WindowClass, self).__init__()
 		self.setupUi(self)
+		self.DCamThread = DCamThread()
+		self.CCamThread = CCamThread()
 		self.loadImageFromFile() #setting images
 		self.actionReady.triggered.connect(self.actionready_triggered) #ready state
 		self.actionStart.triggered.connect(self.actionstart_triggered) #start state
+		self.DCamThread.update_cap.connect(self.d_cam_callback)
+		self.CCamThread.update_cap.connect(self.c_cam_callback)
 		self.actionStop.triggered.connect(self.actionstop_triggered) #stop state
 
 	def actionready_triggered(self):
@@ -58,10 +63,14 @@ class WindowClass(QMainWindow, form_class) :
 	def actionstart_triggered(self):
 		print("Action Start Triggered")
 		self.subscribe_nodes() #subscribing start
+		#self.DCamThread.start()
+		#self.CCamThread.start()
 
 	def actionstop_triggered(self) :
 		print("Action Stop Triggered")
 		rospy.on_shutdown(self.myhook) #shut down the nodes
+		self.DCamThread.stop()
+		self.CCamThread.stop()
 
 	def loadImageFromFile(self) :
 		self.qPixmapCar = QPixmap()
@@ -120,7 +129,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/goal_node', String, self.rviz_goal_node_callback)
 		rospy.Subscriber('/pose',Odometry, self.c_nav_callback) 
 		rospy.Subscriber('/distance',Odometry, self.c_dist_callback) #!!!!!
-		rospy.Subscriber('/darknet_ros/detection_image_c', Image, self.c_cam_callback) #car
+		#rospy.Subscriber('/darknet_ros/detection_image_c', Image, self.c_cam_callback) #car
 		rospy.Subscriber('/darknet_ros/bounding_boxes_c', BoundingBoxes, self.c_bboxes_callback)
 		#rospy.Subscriber('/Vel', Odometry, self.c_vel_callback)
 		#rospy.Subscriber('/obs_number',Obs, self.c_obs_callback ) #!!!!		
@@ -130,8 +139,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/mavros/global_position/global',NavSatFix,self.d_pos_callback)
 		rospy.Subscriber('/mavros/imu/data',Imu, self.d_imu_callback)
 		rospy.Subscriber('/mavros/local_position/pose',PoseStamped,self.d_alt_callback)
-		rospy.Subscriber('/image_raw', Image, self.d_cam_callback) #drone
-		rospy.Subscriber('/darknet_ros/detection_image_d', Image, self.d_cam_callback) #drone
+		#rospy.Subscriber('/darknet_ros/detection_image_d', Image, self.d_cam_callback) #drone
 		rospy.Subscriber('/darknet_ros/bounding_boxes_d',BoundingBoxes, self.d_bboxes_callback )
 
 
@@ -172,7 +180,7 @@ class WindowClass(QMainWindow, form_class) :
 
 	#display rest distance to destination 
 	def c_dist_callback(self, ros_data) :
-		diststr = str(ros_data.distance)
+		diststr = str(ros_data.twist.twist.linear.z)
 		self.car_dist_label.setText(diststr+" m remain") 
 
 	#display obstacles number from LiDAR
@@ -181,6 +189,12 @@ class WindowClass(QMainWindow, form_class) :
 		self.car_obs_label.setText(obsstr+" detected") 
 
 	#display object detection result from car
+	@pyqtSlot(QImage)
+ 	def c_cam_callback(self, qimage) :
+		self.car_cam_label_1.setPixmap(QPixmap(qimage))
+		self.car_cam_label_1.show()
+		QApplication.processEvents()
+	"""
 	def c_cam_callback(self, data) :
 		self.bridge = CvBridge()
 		try:
@@ -196,6 +210,7 @@ class WindowClass(QMainWindow, form_class) :
 
 		self.car_cam_label_1.show()
 		QApplication.processEvents()
+	"""
 
 	#display detectioned objects number from object detection
 	def c_bboxes_callback(self, data) :
@@ -241,6 +256,7 @@ class WindowClass(QMainWindow, form_class) :
 		self.drone_batt_label.setText(bat_txt)
 
 	#display object detection result from drone
+	"""
 	def d_cam_callback(self, data) :
 		self.bridge = CvBridge()
 		try:
@@ -256,7 +272,13 @@ class WindowClass(QMainWindow, form_class) :
 
 		self.drone_cam_label.show()
 		QApplication.processEvents()
- 	
+	"""
+	@pyqtSlot(QImage)
+ 	def d_cam_callback(self, qimage) :
+		self.drone_cam_label.setPixmap(QPixmap(qimage))
+		self.drone_cam_label.show()
+		QApplication.processEvents()
+
  	#diplay object's number from drones' object detection
 	def d_bboxes_callback(self, data) :
 		s_count = 0
@@ -278,8 +300,77 @@ class WindowClass(QMainWindow, form_class) :
 	def myhook(self):
 		print("Shut Down")
 
+
+class CCamThread(QThread) :
+	update_cap = pyqtSignal(QImage)
+	def __init__(self) :
+		super(CCamThread, self).__init__()
+		self.bridge = CvBridge()
+		self.img = rospy.Subscriber('/image_raw', Image, self.get_image)
+		self.data = Image()
+		self.cv2_img = np.zeros((480,360,3), np.uint8)
+		self.running = True
+
+	def get_image(self, data) :
+		self.data = data
+
+	def run(self) :
+		while self.running :
+			try:
+				self.cv2_img = self.bridge.imgmsg_to_cv2(self.data, "bgr8")
+			except CvBridgeError, e:
+				print(e)
+			rgbImage = cv2.cvtColor(self.cv2_img, cv2.COLOR_BGR2RGB)
+			h,w,ch = rgbImage.shape
+			bpl = ch * w
+			converToQtFormat = QImage(rgbImage.data, w, h, bpl, QImage.Format_RGB888)
+			qimage = converToQtFormat.scaled(480,360, Qt.KeepAspectRatio)
+			self.update_cap.emit(qimage)
+
+	def stop(self) :
+		self.running = False
+		self.quit()
+		self.wait(5000)
+
+
+class DCamThread(QThread) :
+	update_cap = pyqtSignal(QImage)
+	def __init__(self) :
+		super(DCamThread, self).__init__()
+		self.bridge = CvBridge()
+		self.img = rospy.Subscriber('/image_raw', Image, self.get_image)
+		self.data = Image()
+		self.cv2_img = np.zeros((480,360,3), np.uint8)
+		self.running = True
+
+	def get_image(self, data) :
+		self.data = data
+
+	def run(self) :
+		while self.running :
+			try:
+				self.cv2_img = self.bridge.imgmsg_to_cv2(self.data, "bgr8")
+			except CvBridgeError, e:
+				print(e)
+
+			rgbImage = cv2.cvtColor(self.cv2_img, cv2.COLOR_BGR2RGB)
+			h,w,ch = rgbImage.shape
+			bpl = ch * w
+			converToQtFormat = QImage(rgbImage.data, w, h, bpl, QImage.Format_RGB888)
+			qimage = converToQtFormat.scaled(480,360, Qt.KeepAspectRatio)
+			self.update_cap.emit(qimage)
+
+	def stop(self) :
+		self.running = False
+		self.quit()
+		self.wait(5000)
+
+
 if __name__ == "__main__" :
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	app = QApplication(sys.argv)
 	myWindow = WindowClass()
 	myWindow.showMaximized()
+
 	app.exec_()
+

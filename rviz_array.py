@@ -365,14 +365,14 @@ def GPSIMU(data):
     global gps_count 
     
     # base point offset parameter
-    base_lat = 37.448611
-    base_lon = 126.654965
-    base_alt = 0.8
+    base_lat = 37.383784    
+    base_lon = 126.654310
+    base_alt = 30.3
     
     #get the lat, lng from gps 
     lat = float(data.pose.pose.position.y)
     lng = float(data.pose.pose.position.x)
-    alt = 0.8
+    alt = 34.5
 
     # latitude, longitude  -->  x, y use pymap3d
     x, y, u = pymap3d.geodetic2enu(lat, lng, alt, base_lat, base_lon, base_alt)
@@ -412,7 +412,7 @@ def GPSIMU(data):
             f = io.open(file, 'r', encoding='utf-8')
             rdr = csv.reader(f)
 
-            line_files.append(number)
+            #line_files.append(number)
             files_idx += 1
             raw_idx = -1
             
@@ -456,6 +456,7 @@ def GPSIMU(data):
         start.scale.y = 0.7
         start.scale.z = 0.005
         start.color.a = 1.0
+        #rgb(255, 184, 108) orange
         start.color.r = 1.0
         start.color.g = 0.72
         start.color.b = 0.42
@@ -473,21 +474,27 @@ def GPSIMU(data):
         vehicle.id = 1
         #converted x, y position from gps lat, lng
         vehicle.pose.position.x = msg.pose.pose.position.x
+
         vehicle.pose.position.y = msg.pose.pose.position.y
         vehicle.pose.position.z = 0
         vehicle.pose.orientation.x = 0
         vehicle.pose.orientation.y = 0
         #heading point 
-        vehicle.pose.orientation.z = data.pose.pose.orientation.z #this is yaw data
-        vehicle.pose.orientation.w = data.pose.pose.orientation.w # ????
+        vehicle.pose.orientation.z =data.pose.pose.orientation.z #this is yaw data
+        vehicle.pose.orientation.w = 1.0 # ???\
+
+        #vehicle.pose.orientation.z = data.pose.pose.orientation.z #this is yaw data
+        #vehicle.pose.orientation.w = data.pose.pose.orientation.w # ????
+        
         vehicle.scale.x = 0.4 
         vehicle.scale.y = 0.8
         vehicle.scale.z = 0.3
-        #rgb(255, 184, 108) orange
         vehicle.color.a = 1.0
         vehicle.color.r = 0.31
         vehicle.color.g = 0.98
         vehicle.color.b = 0.48
+        #publish now vehicle's position
+        pub.publish(vehicle)
 
     #wait about 2 seconds 
     elif (gps_count < 3) :
@@ -497,9 +504,7 @@ def GPSIMU(data):
 
     #vehicle's yaw information for publish
     msg.pose.pose.position.z = data.pose.pose.position.z*3.141592/180 #this is yaw data
-
-    #publish now vehicle's position
-    pub.publish(vehicle)
+    
     #pubish now vehicle's position information
     pub_distance.publish(msg)
 
@@ -520,17 +525,17 @@ pub_mouse = rospy.Publisher('/check', Marker, queue_size = 1, latch = True)
 pub_goal_pos = rospy.Publisher('/goal_pos', Point,  queue_size = 1)
 pub_goal_node = rospy.Publisher('/goal_node', String, queue_size=10)
 
-#pub_start = rospy.Publisher('/start', Marker, queue_size = 1, latch = True)
+pub_start = rospy.Publisher('/start', Marker, queue_size = 1, latch = True)
 #pub_obstacle_number = rospy.Publisher('/obstacle_number', Odometry, queue_size = 1)
 #pub_obstacle = rospy.Publisher('/obstacle_rviz', MarkerArray, queue_size = 1)
-#pub_distance = rospy.Publisher('/distance', Odometry, queue_size = 1)
+pub_distance = rospy.Publisher('/distance', Odometry, queue_size = 1)
 #pub_GPP = rospy.Publisher('/map_gpp', MarkerArray, queue_size = 1, latch = True)
 #pub_LPP = rospy.Publisher('/map_lpp', MarkerArray, queue_size = 1, latch = True)
 #pub_text = rospy.Publisher('/text', Marker, queue_size = 100, latch = True)
-#pub = rospy.Publisher('/vehicle', Marker, queue_size = 1)
+pub = rospy.Publisher('/vehicle', Marker, queue_size = 1)
 
 rospy.init_node("visualization",anonymous=True)
-#rospy.Subscriber('/pose', Odometry, GPSIMU)
+rospy.Subscriber('/pose_test', Odometry, GPSIMU)
 rospy.Subscriber('/move_base_simple/goal', PoseStamped, findgoal)
 #rospy.Subscriber('/obstacles', Obstacles, obstacle)
 #rospy.Subscriber('/GPP', PointCloud, GPP)
