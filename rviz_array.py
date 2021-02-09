@@ -381,7 +381,7 @@ def GPSIMU(data):
     #vehicle's position information for publish
     msg.pose.pose.position.x = x
     msg.pose.pose.position.y = y
-
+    #print( msg.pose.pose.position.x,  msg.pose.pose.position.y)
     # Distance calculation
     distance = abs(math.hypot(msg.twist.twist.linear.x-msg.pose.pose.position.x,
         msg.twist.twist.linear.y-msg.pose.pose.position.y))
@@ -480,7 +480,7 @@ def GPSIMU(data):
         vehicle.pose.orientation.x = 0
         vehicle.pose.orientation.y = 0
         #heading point 
-        vehicle.pose.orientation.z =data.pose.pose.orientation.z #this is yaw data
+        vehicle.pose.orientation.z =0.0 #this is yaw data
         vehicle.pose.orientation.w = 1.0 # ???\
 
         #vehicle.pose.orientation.z = data.pose.pose.orientation.z #this is yaw data

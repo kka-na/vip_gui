@@ -47,6 +47,7 @@ class WindowClass(QMainWindow, form_class) :
 	def __init__(self) : 
 		super(WindowClass, self).__init__()
 		self.setupUi(self)
+		rospy.init_node('visualizer', anonymous=True)
 		self.DCamThread = DCamThread()
 		self.CCamThread = CCamThread()
 		self.loadImageFromFile() #setting images
@@ -96,7 +97,6 @@ class WindowClass(QMainWindow, form_class) :
 
 
 	def initialize_all(self) :
-		rospy.init_node('visualizer', anonymous=True); #set node 
 		self.publish_nodes() #publish send NAV GOAL message from rviz 
 		#setting rviz visulizer
 		self.rviz_frame = rviz.VisualizationFrame()
@@ -119,15 +119,16 @@ class WindowClass(QMainWindow, form_class) :
 	def publish_nodes(self) :
 		#for sending nav goals
 		nav_topic = rospy.get_param("remote_nav/nav_topic", "/move_base_simple/goal")
-		self.nav_pub = rospy.Publisher(nav_topic, PoseStamped, queue_size = 10)
+		self.nav_pub = rospy.Publisher(nav_topic, PoseStamped, queue_size=10)
 
 	#starting subscribe nodes
 	def subscribe_nodes(self) :
 		print("Nodes are Subscribing")
 		#this is for car
+		
 		rospy.Subscriber('/goal_pos', Point, self.rviz_goal_callback) 
 		rospy.Subscriber('/goal_node', String, self.rviz_goal_node_callback)
-		rospy.Subscriber('/pose',Odometry, self.c_nav_callback) 
+		rospy.Subscriber('/pose_test',Odometry, self.c_nav_callback) 
 		rospy.Subscriber('/distance',Odometry, self.c_dist_callback) #!!!!!
 		#rospy.Subscriber('/darknet_ros/detection_image_c', Image, self.c_cam_callback) #car
 		rospy.Subscriber('/darknet_ros/bounding_boxes_c', BoundingBoxes, self.c_bboxes_callback)
@@ -143,7 +144,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/darknet_ros/bounding_boxes_d',BoundingBoxes, self.d_bboxes_callback )
 
 
-	"""
+
 	def moveNav(self) :
 		goal = PoseStamped()
 		goal.header.frame_id = "/start"
@@ -153,7 +154,7 @@ class WindowClass(QMainWindow, form_class) :
 
 	def _send_nav_goal(self, pose) : 
 		self.nav_pub.publish(pose)
-	"""
+
 
 	#unique message from rviz to display goal position information
 	def rviz_goal_callback(self, data) :
@@ -181,7 +182,7 @@ class WindowClass(QMainWindow, form_class) :
 	#display rest distance to destination 
 	def c_dist_callback(self, ros_data) :
 		diststr = str(ros_data.twist.twist.linear.z)
-		self.car_dist_label.setText(diststr+" m remain") 
+		self.car_distance_label.setText(diststr+" m remain") 
 
 	#display obstacles number from LiDAR
 	def c_obs_callback(self, ros_data) :
@@ -306,7 +307,7 @@ class CCamThread(QThread) :
 	def __init__(self) :
 		super(CCamThread, self).__init__()
 		self.bridge = CvBridge()
-		self.img = rospy.Subscriber('/image_raw', Image, self.get_image)
+		self.img = rospy.Subscriber('/camera/lane', Image, self.get_image)
 		self.data = Image()
 		self.cv2_img = np.zeros((480,360,3), np.uint8)
 		self.running = True
@@ -338,7 +339,7 @@ class DCamThread(QThread) :
 	def __init__(self) :
 		super(DCamThread, self).__init__()
 		self.bridge = CvBridge()
-		self.img = rospy.Subscriber('/image_raw', Image, self.get_image)
+		self.img = rospy.Subscriber('/', Image, self.get_image)
 		self.data = Image()
 		self.cv2_img = np.zeros((480,360,3), np.uint8)
 		self.running = True
@@ -371,6 +372,5 @@ if __name__ == "__main__" :
 	app = QApplication(sys.argv)
 	myWindow = WindowClass()
 	myWindow.showMaximized()
-
 	app.exec_()
 
