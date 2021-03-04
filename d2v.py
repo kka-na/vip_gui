@@ -70,8 +70,8 @@ class WindowClass(QMainWindow, form_class) :
 	def actionstop_triggered(self) :
 		print("Action Stop Triggered")
 		rospy.on_shutdown(self.myhook) #shut down the nodes
-		self.DCamThread.stop()
-		self.CCamThread.stop()
+		#self.DCamThread.stop()
+		#self.CCamThread.stop()
 
 	def loadImageFromFile(self) :
 		self.qPixmapCar = QPixmap()
@@ -130,6 +130,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/goal_node', String, self.rviz_goal_node_callback)
 		rospy.Subscriber('/pose_test',Odometry, self.c_nav_callback) 
 		rospy.Subscriber('/distance',Odometry, self.c_dist_callback) #!!!!!
+		#rospy.Subscriber('/image_raw', Image, self.c_cam_callback) #drone
 		#rospy.Subscriber('/darknet_ros/detection_image_c', Image, self.c_cam_callback) #car
 		rospy.Subscriber('/darknet_ros/bounding_boxes_c', BoundingBoxes, self.c_bboxes_callback)
 		#rospy.Subscriber('/Vel', Odometry, self.c_vel_callback)
@@ -141,6 +142,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/mavros/imu/data',Imu, self.d_imu_callback)
 		rospy.Subscriber('/mavros/local_position/pose',PoseStamped,self.d_alt_callback)
 		#rospy.Subscriber('/darknet_ros/detection_image_d', Image, self.d_cam_callback) #drone
+		rospy.Subscriber('/image_raw/compressed', Image, self.d_cam_callback) #drone
 		rospy.Subscriber('/darknet_ros/bounding_boxes_d',BoundingBoxes, self.d_bboxes_callback )
 
 
@@ -189,6 +191,7 @@ class WindowClass(QMainWindow, form_class) :
 		obsstr = str(int(ros_data.pose.pose.position.x))
 		self.car_obs_label.setText(obsstr+" detected") 
 
+	"""
 	#display object detection result from car
 	@pyqtSlot(QImage)
  	def c_cam_callback(self, qimage) :
@@ -211,7 +214,7 @@ class WindowClass(QMainWindow, form_class) :
 
 		self.car_cam_label_1.show()
 		QApplication.processEvents()
-	"""
+	
 
 	#display detectioned objects number from object detection
 	def c_bboxes_callback(self, data) :
@@ -257,7 +260,7 @@ class WindowClass(QMainWindow, form_class) :
 		self.drone_batt_label.setText(bat_txt)
 
 	#display object detection result from drone
-	"""
+	
 	def d_cam_callback(self, data) :
 		self.bridge = CvBridge()
 		try:
@@ -279,6 +282,7 @@ class WindowClass(QMainWindow, form_class) :
 		self.drone_cam_label.setPixmap(QPixmap(qimage))
 		self.drone_cam_label.show()
 		QApplication.processEvents()
+	"""
 
  	#diplay object's number from drones' object detection
 	def d_bboxes_callback(self, data) :
@@ -307,7 +311,7 @@ class CCamThread(QThread) :
 	def __init__(self) :
 		super(CCamThread, self).__init__()
 		self.bridge = CvBridge()
-		self.img = rospy.Subscriber('/camera/lane', Image, self.get_image)
+		self.img = rospy.Subscriber('/image_raw', Image, self.get_image)
 		self.data = Image()
 		self.cv2_img = np.zeros((480,360,3), np.uint8)
 		self.running = True
@@ -339,7 +343,7 @@ class DCamThread(QThread) :
 	def __init__(self) :
 		super(DCamThread, self).__init__()
 		self.bridge = CvBridge()
-		self.img = rospy.Subscriber('/', Image, self.get_image)
+		self.img = rospy.Subscriber('/usb_cam/image_raw', Image, self.get_image)
 		self.data = Image()
 		self.cv2_img = np.zeros((480,360,3), np.uint8)
 		self.running = True
@@ -360,6 +364,7 @@ class DCamThread(QThread) :
 			converToQtFormat = QImage(rgbImage.data, w, h, bpl, QImage.Format_RGB888)
 			qimage = converToQtFormat.scaled(480,360, Qt.KeepAspectRatio)
 			self.update_cap.emit(qimage)
+			
 
 	def stop(self) :
 		self.running = False

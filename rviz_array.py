@@ -16,7 +16,7 @@ from visualization_msgs.msg import Marker
 from sensor_msgs.msg import Imu
 from sensor_msgs.msg import NavSatFix
 from nav_msgs.msg import Odometry
-#from obstacle_detector.msg import Obstacles
+from obstacle_detector.msg import Obstacles
 from sensor_msgs.msg import PointCloud
 from std_msgs.msg import String
 from geometry_msgs.msg import Point
@@ -37,10 +37,10 @@ LPP_Array = []
 
 GPP_Array = MarkerArray()
 GPP_Array = []
-
+"""
 obstacle_Array = MarkerArray()
 obstacle_Array.markers = []
-"""
+
 
 
 def world(file):
@@ -229,7 +229,6 @@ def findgoal(data):
 
 
 #------- this is about LiDAR -----------#
-"""
 def obstacle(data):
     ob_num = Odometry() # parameter messege (obstacle's count)
 
@@ -254,9 +253,10 @@ def obstacle(data):
         obstacle_Marker.scale.y = data.circles[ob_count].radius*1.4
         obstacle_Marker.scale.z = 0.5
         obstacle_Marker.color.a = 1.0
-        obstacle_Marker.color.r = 0.0
-        obstacle_Marker.color.g = 1.0
-        obstacle_Marker.color.b = 0.0
+        #rgb(80, 250, 123) green
+        obstacle_Marker.color.r = 0.313
+        obstacle_Marker.color.g = 0.980
+        obstacle_Marker.color.b = 0.482
 
         # Less than 0.01 radius cylinders remove 
         if(data.circles[ob_count].radius>0.01):
@@ -306,6 +306,7 @@ def obstacle(data):
     for ob_count in range (len(obstacle_Array.markers)):
         obstacle_Array.markers.pop()
 
+"""
 def LPP(data):
     for LPP_count in range (len(data.points)):
         LPP = Marker()
@@ -387,6 +388,7 @@ def GPSIMU(data):
         msg.twist.twist.linear.y-msg.pose.pose.position.y))
     msg.twist.twist.linear.z = distance
     
+    
 
     # 1 second after, start point setting
     if (gps_count == 2):
@@ -436,6 +438,12 @@ def GPSIMU(data):
 
         fin_position_x = result_x
         fin_position_y = result_y
+
+        #for drone start position
+        start_odom = Odometry() 
+        start_odom.pose.pose.position.x = result_x
+        start_odom.pose.pose.position.y = result_y
+        start_odom.pose.pose.position.z = data.twist.twist.angular.z
         
         #Make starting position maker
         start = Marker()
@@ -461,6 +469,7 @@ def GPSIMU(data):
         start.color.g = 0.72
         start.color.b = 0.42
         pub_start.publish(start)
+        pub_start_pos.publish(start_odom)
 
     #if start position was set, display now car position 
     elif (gps_count > 2) :
@@ -474,13 +483,12 @@ def GPSIMU(data):
         vehicle.id = 1
         #converted x, y position from gps lat, lng
         vehicle.pose.position.x = msg.pose.pose.position.x
-
         vehicle.pose.position.y = msg.pose.pose.position.y
         vehicle.pose.position.z = 0
         vehicle.pose.orientation.x = 0
         vehicle.pose.orientation.y = 0
         #heading point 
-        vehicle.pose.orientation.z =0.0 #this is yaw data
+        vehicle.pose.orientation.z = msg.pose.pose.position.z #this is yaw data
         vehicle.pose.orientation.w = 1.0 # ???\
 
         #vehicle.pose.orientation.z = data.pose.pose.orientation.z #this is yaw data
@@ -503,7 +511,7 @@ def GPSIMU(data):
         pass
 
     #vehicle's yaw information for publish
-    msg.pose.pose.position.z = data.pose.pose.position.z*3.141592/180 #this is yaw data
+    msg.pose.pose.position.z = data.twist.twist.angular.z*3.141592/180 #this is yaw data
     
     #pubish now vehicle's position information
     pub_distance.publish(msg)
@@ -526,18 +534,18 @@ pub_goal_pos = rospy.Publisher('/goal_pos', Point,  queue_size = 1)
 pub_goal_node = rospy.Publisher('/goal_node', String, queue_size=10)
 
 pub_start = rospy.Publisher('/start', Marker, queue_size = 1, latch = True)
-#pub_obstacle_number = rospy.Publisher('/obstacle_number', Odometry, queue_size = 1)
-#pub_obstacle = rospy.Publisher('/obstacle_rviz', MarkerArray, queue_size = 1)
+pub_start_pos = rospy.Publisher('/start_pos', Odometry, queue_size=1)
+pub_obstacle_number = rospy.Publisher('/obstacle_number', Odometry, queue_size = 1)
+pub_obstacle = rospy.Publisher('/obstacle_rviz', MarkerArray, queue_size = 1)
 pub_distance = rospy.Publisher('/distance', Odometry, queue_size = 1)
 #pub_GPP = rospy.Publisher('/map_gpp', MarkerArray, queue_size = 1, latch = True)
 #pub_LPP = rospy.Publisher('/map_lpp', MarkerArray, queue_size = 1, latch = True)
-#pub_text = rospy.Publisher('/text', Marker, queue_size = 100, latch = True)
 pub = rospy.Publisher('/vehicle', Marker, queue_size = 1)
 
 rospy.init_node("visualization",anonymous=True)
 rospy.Subscriber('/pose_test', Odometry, GPSIMU)
-rospy.Subscriber('/move_base_simple/goal', PoseStamped, findgoal)
-#rospy.Subscriber('/obstacles', Obstacles, obstacle)
+rospy.Subscriber('/move_base_simple/goal', PoseStamped, findgoal) #have to change about drone
+rospy.Subscriber('/obstacles', Obstacles, obstacle)
 #rospy.Subscriber('/GPP', PointCloud, GPP)
 pub_array.publish(worldArray)
 rospy.spin()

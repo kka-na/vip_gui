@@ -49,6 +49,7 @@ def p_test() :
 		pub.publish(send_point)
 		send_point.pose.pose.position.x -= 0.00000001
 		send_point.pose.pose.position.y += 0.000001
+		send_point.twist.twist.angular.z -= 0.0001
 		print(send_point.pose.pose.position.x)
 		r.sleep()
 
