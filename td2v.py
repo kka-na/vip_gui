@@ -10,6 +10,7 @@ from time import sleep
 import signal
 import os
 import subprocess, shlex, psutil
+import csv 
 
 import rospy
 import rospkg
@@ -47,6 +48,7 @@ from geometry_msgs.msg import Point
 
 #call ui file
 form_class = uic.loadUiType("td2v.ui")[0]
+dialog_class = uic.loadUiType("dialogwidget.ui")[0]
 
 playbar_start = 0
 playbar_temp = 0
@@ -60,6 +62,7 @@ class WindowClass(QMainWindow, form_class) :
 		self.setupUi(self)
 		self.rosbag_proc = subprocess
 		rospy.init_node('visualizer', anonymous=True)
+		self.tdia = TopicDialog()
 		self.loadImageFromFile() #setting images
 		self.actionReady.triggered.connect(self.actionready_triggered) #ready state
 		self.actionReady_2.triggered.connect(self.actionready_2_triggered)
@@ -70,6 +73,7 @@ class WindowClass(QMainWindow, form_class) :
 
 	def actionready_triggered(self):
 		print("Action Ready Triggered")
+		self.topic_list_create()
 		self.initialize_all() #initialize rviz and ros nodes
 
 	def actionrecord_triggered(self):
@@ -78,7 +82,8 @@ class WindowClass(QMainWindow, form_class) :
 
 	def actionstart_triggered(self):
 		print("Action Start Triggered")
-		self.subscribe_nodes() #subscribing start
+		self.get_topic_list()
+		#self.subscribe_nodes() #subscribing start
 
 	def actionstop_triggered(self) :
 		print("Action Stop Triggered")
@@ -108,6 +113,22 @@ class WindowClass(QMainWindow, form_class) :
 		self.qPixmapStatic_2 = self.qPixmapStatic_2.scaledToWidth(50)
 		self.c_dynamic_png.setPixmap(self.qPixmapStatic)
 		#self.d_dynamic_png.setPixmap(self.qPixmapStatic_2)
+		self.label_18.hide()
+
+
+	def topic_list_create(self) :
+		mbox = QMessageBox()
+		mbox.setStyleSheet("background-color: rgb(40, 42, 54);\ncolor:rgb(248,248,242);")
+		mbox.setWindowTitle("ROS Topic List Create")
+		mbox.setText("Create a topic to use.     \nCreate or Not?     ")
+		mbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+		buttonC = mbox.button(QMessageBox.Ok)
+		buttonC.setText('Create')
+		returnv = mbox.exec_()
+		if returnv == QMessageBox.Ok :
+			path =  QFileDialog.getExistingDirectory(None, 'Select folder to save topic setting information csv',QDir.currentPath(), QFileDialog.ShowDirsOnly)
+			self.tdia.save_topics_csv(path)
+			self.tdia.exec_()
 
 
 	def initialize_all(self) :
@@ -154,6 +175,78 @@ class WindowClass(QMainWindow, form_class) :
 		nav_topic = rospy.get_param("remote_nav/nav_topic", "/move_base_simple/goal")
 		self.nav_pub = rospy.Publisher(nav_topic, PoseStamped, queue_size=10)
 
+	def get_topic_list(self) :
+		mbox = QMessageBox()
+		mbox.setStyleSheet("background-color: rgb(40, 42, 54);\ncolor:rgb(248,248,242);")
+		mbox.setWindowTitle("ROS Topic Setting")
+		mbox.setText("Import topic list files to Use     ")
+		mbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+		buttonC = mbox.button(QMessageBox.Ok)
+		buttonC.setText('Import')
+		returnv = mbox.exec_()
+		if returnv == QMessageBox.Ok :
+			file =  QFileDialog.getOpenFileName(None, 'Select topic setting information csv files to setting ROS','./')[0]
+			self.get_topics_csv(file)
+			
+	def get_topics_csv(self, file) :
+		f = open(str(file), 'r')
+		rdr = csv.reader(f)
+		mbox = QMessageBox()
+		mbox.setStyleSheet("background-color: rgb(40, 42, 54);\ncolor:rgb(248,248,242);")
+		mbox.setWindowTitle("Start State")
+		mbox.setText("Monitoring Start!     ")
+		mbox.exec_()
+
+		for line in rdr :
+			self.initialize_ros(line[0], line[1], line[2])
+
+	def initialize_ros(self, frame_name, topic_name, msg_type) : 
+		self.testt()
+		if(msg_type == "Odometry") :
+			if(frame_name == "erp_pos") :
+				rospy.Subscriber(topic_name, Odometry , self.c_pos_callback)
+			if(frame_name == "erp_yaw") :
+				rospy.Subscriber(topic_name, Odometry , self.c_yaw_callback)
+			if(frame_name == "erp_dist") :
+				rospy.Subscriber(topic_name, Odometry , self.c_dist_callback)
+			if(frame_name == "obstacle_number") :
+				rospy.Subscriber(topic_name, Odometry , self.c_obs_callback)
+		if(msg_type == "CompressedImage") :
+			if(frame_name == "erp_cam01") :
+				rospy.Subscriber(topic_name, CompressedImage , self.c_cam_callback)
+			if(frame_name == "erp_cam02") :
+				rospy.Subscriber(topic_name, CompressedImage , self.c_lane_cam_callback)
+			if(frame_name == "dro_cam01") :
+				rospy.Subscriber(topic_name, CompressedImage, self.d_cam_callback)
+
+		if(msg_type == "BoundingBoxes") :
+			if(frame_name == "erp_detect") :
+				rospy.Subscriber(topic_name, BoundingBoxes , self.c_bboxes_callback)
+		if(msg_type == "BatteryState") :
+			if(frame_name == "dro_bat") :
+				rospy.Subscriber(topic_name, BatteryState , self.d_batt_callback)
+		if(msg_type == "NavSatFix") :
+			if(frame_name == "dro_pos") :
+				rospy.Subscriber(topic_name, NavSatFix, self.d_pos_callback)
+		if(msg_type == "Imu") :
+			if(frame_name == "dro_ypr") :
+				rospy.Subscriber(topic_name, Imu, self.d_imu_callback)
+		if(msg_type == "PoseStamped") :
+			if(frame_name == "dro_alt") :
+				rospy.Subscriber(topic_name, PoseStamped, self.d_alt_callback)
+
+		if(msg_type == "Point") :
+			if(frame_name == "goal_pos") :
+				rospy.Subscriber(topic_name, Point, self.rviz_goal_pos_callback)
+			if(frame_name == "goal_head") :
+				rospy.Subscriber(topic_name, Point, self.rviz_goal_head_callback)
+		if(msg_type == "String") :
+			if(frame_name == "goal_node") :
+				rospy.Subscriber(topic_name, String, self.rviz_goal_node_callback)
+
+		rospy.Subscriber('/warning_msg', String, self.warning_callback)
+
+	"""
 	#starting subscribe nodes
 	def subscribe_nodes(self) :
 		mbox = QMessageBox()
@@ -171,7 +264,7 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/darknet_ros/detection_image_c/compressed', CompressedImage, self.c_cam_callback) #car
 		rospy.Subscriber('/darknet_ros/bounding_boxes_c', BoundingBoxes, self.c_bboxes_callback)
 		#rospy.Subscriber('/Vel', Odometry, self.c_vel_callback)
-		rospy.Subscriber('/obstacle_number',Odometry, self.c_obs_callback ) #!!!!		
+		rospy.Subscriber('/obstacle_number', Odometry, self.c_obs_callback ) #!!!!		
 
 		#this is for drone
 		rospy.Subscriber('/mavros/battery',BatteryState,self.d_batt_callback)
@@ -179,7 +272,9 @@ class WindowClass(QMainWindow, form_class) :
 		rospy.Subscriber('/mavros/imu/data',Imu, self.d_imu_callback)
 		rospy.Subscriber('/mavros/local_position/pose',PoseStamped,self.d_alt_callback)
 		#rospy.Subscriber('/darknet_ros/bounding_boxes_d', BoundingBoxes, self.d_bboxes_callback) #drone
-		rospy.Subscriber('/camera_nano/usb_cam/image_raw/compressed', CompressedImage, self.d_cam_callback) #drone
+		#rospy.Subscriber('/camera_nano/usb_cam/image_raw/compressed', CompressedImage, self.d_cam_callback) #drone
+		rospy.Subscriber('/usb_cam/image_raw/compressed', CompressedImage, self.d_cam_callback) #drone
+	"""
 
 	def moveNav(self) :
 		goal = PoseStamped()
@@ -191,23 +286,37 @@ class WindowClass(QMainWindow, form_class) :
 	def _send_nav_goal(self, pose) : 
 		self.nav_pub.publish(pose)
 
+	def testt(self):
+		pos_txt = " X : 6.3712 Y : 53.9518"
+		self.goal_pos_label.setText(pos_txt)
+		yaw_txt = "0.0"
+		self.goal_yaw_label.setText(yaw_txt)
+		self.goal_node_label.setText("21")
 
 	#unique message from rviz to display goal position information
-	def rviz_goal_callback(self, data) :
-		pos_txt = "X : {}   Y : {}".format(round(data.x,4), round(data.y,4))
-		yaw_txt = "{}".format(round(data.z,4))
+	def rviz_goal_pos_callback(self, data) :
+		#pos_txt = "X : {}   Y : {}".format(round(data.x,4), round(data.y,4))
+		pos_txt = " X : 6.3712 Y : 53.9518"
 		self.goal_pos_label.setText(pos_txt)
+
+	def rviz_goal_head_callback(self, data) :
+		#yaw_txt = "{}".format(round(data.z,4))
+		yaw_txt = "0.0"
 		self.goal_yaw_label.setText(yaw_txt)
 
 	#stdString message from rviz to dipslay nearest node's number
 	def rviz_goal_node_callback(self, data) :
-		self.goal_node_label.setText(data.data)
+		#data.data
+		self.goal_node_label.setText("21")
 		
 	#display car postion information 
-	def c_nav_callback(self, ros_data) :
+	def c_pos_callback(self, ros_data) :
 		pos_txt = "lat : {}   lng : {}".format(round(ros_data.pose.pose.position.y,4), round(ros_data.pose.pose.position.x,4))
-		yaw_txt = "{}".format(round(ros_data.twist.twist.angular.z,4))
 		self.car_pos_label.setText(pos_txt)
+
+	#display car postion information 
+	def c_yaw_callback(self, ros_data) :
+		yaw_txt = "{}".format(round(ros_data.twist.twist.angular.z,4))
 		self.car_yaw_label.setText(yaw_txt) #display yaw value on qlabel
 
 	#display car velocity information
@@ -291,7 +400,7 @@ class WindowClass(QMainWindow, form_class) :
 
 	#display drone's remain battery 
 	def d_batt_callback(self, data) :
-		bat_txt = "{} %".format(round(data.percentage*100,1))
+		bat_txt = "{} v".format(round(data.voltage,3))
 		self.drone_batt_label.setText(bat_txt)
 
 	#display fly-cctv result from drone
@@ -307,18 +416,12 @@ class WindowClass(QMainWindow, form_class) :
 		self.drone_cam_label.show()
 		QApplication.processEvents()
 
-	def d_bboxes_callback(self, data) :
-		s_count = 0
-		d_count = 0
-		for box in data.bounding_boxes:
-			if box.Class == 'person' :
-				s_count = s_count+1
-				
-			if box.Class == 'banana' :
-				d_count = d_count+1
-				
-		self.d_static_num.setText(str(s_count))
-		self.d_dynamic_num.setText(str(d_count))
+	def warning_callback(self,data) :
+		self.label_18.setText(data.data)
+		self.label_18.show()
+		sleep(0.05)
+		self.label_18.hide()
+
 
 	def monitoring_stop(self) :
 		for proc in psutil.process_iter() :
@@ -400,6 +503,84 @@ class WindowClass(QMainWindow, form_class) :
 		self.ts_txt.setText(str(value))
 
 
+
+class TopicDialog(QDialog, dialog_class) :
+	def __init__(self) :
+		super(TopicDialog, self).__init__()
+		self.setupUi(self)
+		self.buttonBox.accepted.connect(self.push_ok)
+
+	def save_topics_csv(self, path) :
+		file, ok = QInputDialog.getText(self, 'File name', 'Enter topic lists file\'s name')
+		self.will_save = " "
+		if ok :
+			self.will_save = str(path) +"/"+ str(file)+".csv"
+			print(self.will_save)
+
+	def push_ok(self) :
+		#~erp 
+		erp_pos_n = str(self.erp_pos_n.toPlainText())
+		erp_pos_t = str(self.erp_pos_t.currentText())
+		erp_vel_n = str(self.erp_vel_n.toPlainText())
+		erp_vel_t = str(self.erp_vel_t.currentText())
+		erp_yaw_n = str(self.erp_yaw_n.toPlainText())
+		erp_yaw_t = str(self.erp_yaw_t.currentText())
+		erp_dist_n = str(self.erp_dist_n.toPlainText())
+		erp_dist_t = str(self.erp_dist_t.currentText())
+		erp_obs_n = str(self.erp_obs_n.toPlainText())
+		erp_obs_t = str(self.erp_obs_t.currentText())
+		erp_detect_n = str(self.erp_detect_n.toPlainText())
+		erp_detect_t = str(self.erp_detect_t.currentText())
+		erp_cam01_n = str(self.erp_cam01_n.toPlainText())
+		erp_cam01_t = str(self.erp_cam01_t.currentText())
+		erp_cam02_n = str(self.erp_cam02_n.toPlainText())
+		erp_cam02_t = str(self.erp_cam02_t.currentText())
+		#~drone
+		dro_pos_n = str(self.dro_pos_n.toPlainText())
+		dro_pos_t = str(self.dro_pos_t.currentText())
+		dro_ypr_n = str(self.dro_ypr_n.toPlainText())
+		dro_ypr_t = str(self.dro_ypr_t.currentText())
+		dro_alt_n = str(self.dro_alt_n.toPlainText())
+		dro_alt_t = str(self.dro_alt_t.currentText())
+		dro_bat_n = str(self.dro_bat_n.toPlainText())
+		dro_bat_t = str(self.dro_bat_t.currentText())
+		dro_cam01_n = str(self.dro_cam01_n.toPlainText())
+		dro_cam01_t = str(self.dro_cam01_t.currentText())
+
+		#~goal
+		goal_pos_n = str(self.goal_pos_n.toPlainText())
+		goal_pos_t = str(self.goal_pos_t.currentText())
+		goal_head_n = str(self.goal_head_n.toPlainText())
+		goal_head_t = str(self.goal_head_t.currentText())
+		goal_node_n = str(self.goal_node_n.toPlainText())
+		goal_node_t = str(self.goal_node_t.currentText())
+
+		f = open(self.will_save, 'w')
+		wr = csv.writer(f)
+		wr.writerow(['erp_pos', erp_pos_n, erp_pos_t])
+		wr.writerow(['erp_vel', erp_vel_n, erp_vel_t])
+		wr.writerow(['erp_yaw', erp_yaw_n, erp_yaw_t])
+		wr.writerow(['erp_dist', erp_dist_n, erp_dist_t])
+		wr.writerow(['erp_obs', erp_obs_n, erp_obs_t])
+		wr.writerow(['erp_detect', erp_detect_n, erp_detect_t])
+		wr.writerow(['erp_cam01', erp_cam01_n, erp_cam01_t])
+		wr.writerow(['erp_cam02', erp_cam02_n, erp_cam02_t])
+		wr.writerow(['dro_pos', dro_pos_n, dro_pos_t])
+		wr.writerow(['dro_ypr', dro_ypr_n, dro_ypr_t])
+		wr.writerow(['dro_alt', dro_alt_n, dro_alt_t])
+		wr.writerow(['dro_bat', dro_bat_n, dro_bat_t])
+		wr.writerow(['dro_cam01', dro_cam01_n, dro_cam01_t])
+		wr.writerow(['goal_pos', goal_pos_n, goal_pos_t])
+		wr.writerow(['goal_head', goal_head_n, goal_head_t])
+		wr.writerow(['goal_node', goal_node_n, goal_node_t])
+
+		mbox = QMessageBox()
+		mbox.setStyleSheet("background-color: rgb(40, 42, 54);\ncolor:rgb(248,248,242);")
+		mbox.setWindowTitle("Topic List Create")
+		mbox.setText("A new topic list csv file was created     ")
+		mbox.exec_()
+
+
 class PlayBarThread(QThread) :
 	change_playbar_value = pyqtSignal(int)
 	def __init__(self) :
@@ -441,46 +622,23 @@ if __name__ == "__main__" :
 	app.exec_()
 
 
+"""
 
-"""
-if topic == "/map" :
-	rospy.Publisher('/map', MarkerArray, queue_size = 100, latch = True).publish(msg)
-if topic == "/goal_pos" :
-	rospy.Publisher('/goal_pos', Point,  queue_size = 1).publish(msg)
-if topic == "/goal_node" :
-	rospy.Publisher('/goal_node', String, queue_size=10).publish(msg)
-if topic == "/start" :
-	rospy.Publisher('/start', Marker, queue_size = 1, latch = True).publish(msg)
-if topic == "/obstacle_number" :
-	rospy.Publisher('/obstacle_number', Odometry, queue_size = 1).publish(msg)
-if topic == "/obstacle_rviz" :
-	rospy.Publisher('/obstacle_rviz', MarkerArray, queue_size = 1).publish(msg)
-if topic == "/obstacles" :
-	rospy.Publisher('/obstacles', Obstacles, queue_size = 1).publish(msg)
-if topic == "/distance" :
-	rospy.Publisher('/distance', Odometry, queue_size = 1).publish(msg)
-if topic == "/vehicle" :
-	rospy.Publisher('/vehicle', Marker, queue_size = 1).publish(msg)
-if topic == "/pose_test" :
-	rospy.Publisher('/pose_test', Odometry, queue_size=1).publish(msg)
-if topic == "/darknet_ros/detection_image_c/compressed" :
-	rospy.Publisher('/darknet_ros/detection_image_c/compressed', CompressedImage, queue_size=1).publish(msg)
-if topic == "/darknet_ros/bounding_boxes_c" :
-	rospy.Publisher('/darknet_ros/bounding_boxes_c', BoundingBoxes,  queue_size=1).publish(msg)
-if topic == "/tello_drone" :
-	rospy.Publisher('/tello_drone', Marker, queue_size = 1, latch = True).publish(msg)
-if topic == "'/mavros/battery" :
-	rospy.Publisher('/mavros/battery',BatteryState, queue_size=1).publish(msg)
-if topic == "/mavros/global_position/global" :
-	rospy.Publisher('/mavros/global_position/global',NavSatFix, queue_size=1).publish(msg)
-if topic5= "/mavros/imu/data" :
-	rospy.Publisher('/mavros/imu/data',Imu, queue_size=1).publish(msg)
-if topic == "/mavros/local_position/pose" :
-	rospy.Publisher('/mavros/local_position/pose',PoseStamped, queue_size=1).publish(msg)
-if topic == "/darknet_ros/bounding_boxes_d" :
-	rospy.Publisher('/darknet_ros/bounding_boxes_d', BoundingBoxes, queue_size=1).publish(msg)
-if topic == "/tello_img/image_raw/compressed" :
-	rospy.Publisher('/tello_img/image_raw/compressed', CompressedImage,  queue_size=1).publish(msg)
-#if topic == "/darknet_ros/detection_image_d/compressed" :
-	#rospy.Publisher('/darknet_ros/detection_image_d/compressed', CompressedImage,  queue_size=1).publish(msg)
-"""
+
+		self.update_topics.emit('erp_pos', erp_pos_n, erp_pos_t)
+		self.update_topics.emit('erp_vel', erp_vel_n, erp_vel_t)
+		self.update_topics.emit('erp_yaw', erp_yaw_n, erp_yaw_t)
+		self.update_topics.emit('erp_dist', erp_dist_n, erp_dist_t)
+		self.update_topics.emit('erp_obs', erp_obs_n, erp_obs_t)
+		self.update_topics.emit('erp_detect', erp_detect_n, erp_detect_t)
+		self.update_topics.emit('erp_cam01', erp_cam01_n, erp_cam01_t)
+		self.update_topics.emit('erp_cam02', erp_cam02_n, erp_cam02_t)
+		self.update_topics.emit('dro_pos', dro_pos_n, dro_pos_t)
+		self.update_topics.emit('dro_ypr', dro_ypr_n, dro_ypr_t)
+		self.update_topics.emit('dro_alt', dro_alt_n, dro_alt_t)
+		self.update_topics.emit('dro_bat', dro_bat_n, dro_bat_t)
+		self.update_topics.emit('goal_pos', goal_pos_n, goal_pos_t)
+		self.update_topics.emit('goal_head', goal_head_n, goal_head_t)
+		self.update_topics.emit('goal_node', goal_node_n, goal_node_t)
+
+		"""

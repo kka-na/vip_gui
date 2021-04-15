@@ -1,0 +1,16 @@
+erp_pos,/pose,Odometry
+erp_vel,/vel,Odometry
+erp_yaw,/pose,Odometry
+erp_dist,/distance,Odometry
+erp_obs,/obstacle_number,Odometry
+erp_detect,/darknet_ros/bounding_boxes_c,BoundingBoxes
+erp_cam01,/darknet_ros/detection_image_c/compressed,CompressedImage
+erp_cam02,/lane_detection/image_raw/compressed,CompressedImage
+dro_pos,/mavros/global_position/global,NavSatFix
+dro_ypr,/mavros/imu/data,Imu
+dro_alt,/mavros/local_position/pose,PoseStamped
+dro_bat,/mavros/battery,BatteryState
+dro_cam01,/camera_nano/object_detect/image_raw/compressed,CompressedImage
+goal_pos,/goal_pos,Point
+goal_head,/goal_pos,Point
+goal_node,/goal_node,String

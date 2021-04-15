@@ -1,0 +1,2281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>570</width>
+    <height>671</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(40, 42, 54);</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>10</y>
+     <width>81</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="erp_pos_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>50</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_pos_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>50</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lable_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>461</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(40, 42, 54);
+border-style: solid;
+border-width:2px;
+border-color:  rgb(0, 239, 179);
+color: rgb(248, 248, 242);
+font: 57 12pt &quot;Ubuntu&quot;;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="car_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 239, 179);
+font: 75 12pt &quot;Waree&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>ERP 42</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>170</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Obstacles #</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Velocity</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>YAW</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>Position</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>140</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Remain Dist</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_vel_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>80</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_yaw_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>110</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_dist_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>140</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_obs_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>170</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_cam01_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>230</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Cam01</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Cam02</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_cam02_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>260</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>410</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Altitude</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>350</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Position</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lable_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>461</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(40, 42, 54);
+border-style: solid;
+border-width:2px;
+border-color:rgb(139, 233, 253);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>380</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>Yaw Pitch Roll</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="drone_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>320</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(139, 233, 253);
+font: 75 12pt &quot;Waree&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Custom Drone</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>440</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Battery</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="dro_pos_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>350</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="dro_ypr_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>380</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="dro_alt_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>410</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="dro_bat_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>440</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>470</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Cam01</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="dro_cam01_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>470</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>590</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(255, 121, 198);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>Heading</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_14">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>560</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(255, 121, 198);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Goal Position</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_16">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>620</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(255, 121, 198);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>Goal Node</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="goal_pos_label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>520</y>
+     <width>461</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(40, 42, 54);
+border-style: solid;
+border-width:2px;
+border-color: rgb(255, 121, 198);
+color: rgb(248, 248, 242);
+font: 57 12pt &quot;Ubuntu&quot;;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="drone_label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>530</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>12</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 121, 198);
+font: 75 12pt &quot;Waree&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Goal Inform</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="goal_pos_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>560</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="goal_head_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>590</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="goal_node_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>620</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="erp_vel_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>80</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="erp_yaw_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>110</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="erp_dist_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>140</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="erp_obs_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>170</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="erp_cam01_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>230</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="erp_cam02_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>260</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="dro_pos_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>350</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="dro_alt_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>410</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="dro_cam01_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>470</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="dro_bat_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>440</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="dro_ypr_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>380</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="goal_node_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>620</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="goal_pos_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>560</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="goal_head_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>590</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPlainTextEdit" name="erp_detect_n">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>200</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <property name="plainText">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>/topic_name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Waree</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 9pt &quot;Waree&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Detection</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="erp_detect_t">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>200</y>
+     <width>180</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(248, 248, 242);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>~Select the Message Type~</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Odometry</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CompressedImage</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Image</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Point</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>String</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BoundingBoxes</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Imu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>NavSatFix</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BatteryState</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PoseStamped</string>
+    </property>
+   </item>
+  </widget>
+  <zorder>goal_pos_label</zorder>
+  <zorder>lable_8</zorder>
+  <zorder>lable_7</zorder>
+  <zorder>buttonBox</zorder>
+  <zorder>erp_pos_t</zorder>
+  <zorder>erp_pos_n</zorder>
+  <zorder>car_label</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_2</zorder>
+  <zorder>erp_vel_n</zorder>
+  <zorder>erp_yaw_n</zorder>
+  <zorder>erp_dist_n</zorder>
+  <zorder>erp_obs_n</zorder>
+  <zorder>erp_cam01_n</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_7</zorder>
+  <zorder>erp_cam02_n</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_10</zorder>
+  <zorder>label_9</zorder>
+  <zorder>drone_label</zorder>
+  <zorder>label_11</zorder>
+  <zorder>dro_pos_n</zorder>
+  <zorder>dro_ypr_n</zorder>
+  <zorder>dro_alt_n</zorder>
+  <zorder>dro_bat_n</zorder>
+  <zorder>label_12</zorder>
+  <zorder>dro_cam01_n</zorder>
+  <zorder>label_13</zorder>
+  <zorder>label_14</zorder>
+  <zorder>label_16</zorder>
+  <zorder>drone_label_2</zorder>
+  <zorder>goal_pos_n</zorder>
+  <zorder>goal_head_n</zorder>
+  <zorder>goal_node_n</zorder>
+  <zorder>erp_vel_t</zorder>
+  <zorder>erp_yaw_t</zorder>
+  <zorder>erp_dist_t</zorder>
+  <zorder>erp_obs_t</zorder>
+  <zorder>erp_cam01_t</zorder>
+  <zorder>erp_cam02_t</zorder>
+  <zorder>dro_pos_t</zorder>
+  <zorder>dro_alt_t</zorder>
+  <zorder>dro_cam01_t</zorder>
+  <zorder>dro_bat_t</zorder>
+  <zorder>dro_ypr_t</zorder>
+  <zorder>goal_node_t</zorder>
+  <zorder>goal_pos_t</zorder>
+  <zorder>goal_head_t</zorder>
+  <zorder>erp_detect_n</zorder>
+  <zorder>label_15</zorder>
+  <zorder>erp_detect_t</zorder>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

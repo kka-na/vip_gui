@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1520</width>
-    <height>960</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,17 +19,17 @@
   <property name="maximumSize">
    <size>
     <width>1520</width>
-    <height>960</height>
+    <height>1000</height>
    </size>
   </property>
   <property name="baseSize">
    <size>
     <width>1520</width>
-    <height>960</height>
+    <height>1000</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>VIP 5,6 D2V GUI</string>
+   <string>INHA University D2V GUI</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(40, 42, 54);</string>
@@ -44,13 +44,13 @@
    <property name="maximumSize">
     <size>
      <width>1520</width>
-     <height>936</height>
+     <height>1000</height>
     </size>
    </property>
    <property name="baseSize">
     <size>
      <width>1520</width>
-     <height>936</height>
+     <height>1000</height>
     </size>
    </property>
    <widget class="QLabel" name="lable_6">
@@ -174,7 +174,7 @@ font: 57 12pt &quot;Ubuntu&quot;;</string>
      <rect>
       <x>1030</x>
       <y>0</y>
-      <width>400</width>
+      <width>480</width>
       <height>300</height>
      </rect>
     </property>
@@ -395,7 +395,7 @@ font: 57 12pt &quot;Ubuntu&quot;;</string>
      <rect>
       <x>1030</x>
       <y>620</y>
-      <width>400</width>
+      <width>480</width>
       <height>300</height>
      </rect>
     </property>
@@ -737,94 +737,6 @@ font: 57 12pt &quot;Ubuntu&quot;;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_12">
-    <property name="geometry">
-     <rect>
-      <x>1440</x>
-      <y>10</y>
-      <width>70</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(139, 233, 253);
-color: rgb(40, 42, 54);
-font: 75 10pt &quot;Waree&quot;;
-
-</string>
-    </property>
-    <property name="text">
-     <string>person</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="d_static_num">
-    <property name="geometry">
-     <rect>
-      <x>1449</x>
-      <y>110</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(40, 42, 54);
-color: rgb(139, 233, 253);
-font: 57 12pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="d_dynamic_num">
-    <property name="geometry">
-     <rect>
-      <x>1449</x>
-      <y>259</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(40, 42, 54);
-color: rgb(139, 233, 253);
-font: 57 12pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>1440</x>
-      <y>160</y>
-      <width>70</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(139, 233, 253);
-color: rgb(40, 42, 54);
-font: 75 10pt &quot;Waree&quot;;
-
-</string>
-    </property>
-    <property name="text">
-     <string>cell phone</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
@@ -842,7 +754,7 @@ font: 75 10pt &quot;Waree&quot;;
 </string>
     </property>
     <property name="text">
-     <string>cell phone</string>
+     <string>cone</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1048,86 +960,6 @@ font: 75 10pt &quot;Waree&quot;;
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="d_static_png">
-    <property name="geometry">
-     <rect>
-      <x>1449</x>
-      <y>40</y>
-      <width>50</width>
-      <height>70</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="d_dynamic_png">
-    <property name="geometry">
-     <rect>
-      <x>1450</x>
-      <y>190</y>
-      <width>50</width>
-      <height>70</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="d_static_num_2">
-    <property name="geometry">
-     <rect>
-      <x>1440</x>
-      <y>10</y>
-      <width>70</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(40, 42, 54);
-border-style: solid;
-border-width:2px;
-border-color: rgb(139, 233, 253);
-color: rgb(248, 248, 242);
-font: 57 12pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="d_static_num_3">
-    <property name="geometry">
-     <rect>
-      <x>1440</x>
-      <y>160</y>
-      <width>70</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(40, 42, 54);
-border-style: solid;
-border-width:2px;
-border-color: rgb(139, 233, 253);
-color: rgb(248, 248, 242);
-font: 57 12pt &quot;Ubuntu&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="c_static_num_2">
     <property name="geometry">
      <rect>
@@ -1232,11 +1064,238 @@ font: 75 10pt &quot;Waree&quot;;
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="play_btn">
+    <property name="geometry">
+     <rect>
+      <x>1380</x>
+      <y>930</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(248, 248, 242);</string>
+    </property>
+    <property name="text">
+     <string>Play</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pause_btn">
+    <property name="geometry">
+     <rect>
+      <x>1450</x>
+      <y>930</y>
+      <width>60</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(248, 248, 242);</string>
+    </property>
+    <property name="text">
+     <string>Pause</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="slider">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>930</y>
+      <width>1271</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: white;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0.6, x2: 0.4, y2: 1, stop: 0 #00efb3, stop: 1 #bd93f9);
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+background: #fff;
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #eee, stop:1 #ccc);
+border: 1px solid #777;
+width: 13px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal:hover {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #fff, stop:1 #ddd);
+border: 1px solid #444;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ts_txt">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>930</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(248, 248, 242);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>0</y>
+      <width>140</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(139, 233, 253);
+color: rgb(40, 42, 54);
+font: 75 10pt &quot;Waree&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Drone Front Cam</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>310</y>
+      <width>140</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 10pt &quot;Waree&quot;;
+
+background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 10pt &quot;Waree&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Car Obj Detection</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_17">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>620</y>
+      <width>140</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 10pt &quot;Waree&quot;;
+
+background-color:rgb(0, 239, 179);
+color: rgb(40, 42, 54);
+font: 75 10pt &quot;Waree&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Car Lane Detection</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_18">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>30</y>
+      <width>321</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Waree</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(255, 85, 85);
+color:rgb(248, 248, 242);
+font: 75 20pt &quot;Waree&quot;;
+font-weight: Bold;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Warning Obstacles</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>lable_6</zorder>
    <zorder>c_static_num_3</zorder>
    <zorder>c_static_num_2</zorder>
-   <zorder>d_static_num_3</zorder>
-   <zorder>d_static_num_2</zorder>
    <zorder>drone_png</zorder>
    <zorder>car_png</zorder>
    <zorder>lable_8</zorder>
@@ -1264,10 +1323,6 @@ font: 75 10pt &quot;Waree&quot;;
    <zorder>drone_label</zorder>
    <zorder>label_10</zorder>
    <zorder>drone_pos_label</zorder>
-   <zorder>label_12</zorder>
-   <zorder>d_static_num</zorder>
-   <zorder>d_dynamic_num</zorder>
-   <zorder>label_13</zorder>
    <zorder>label_14</zorder>
    <zorder>c_static_num</zorder>
    <zorder>c_dynamic_num</zorder>
@@ -1278,11 +1333,17 @@ font: 75 10pt &quot;Waree&quot;;
    <zorder>label_9</zorder>
    <zorder>c_static_png</zorder>
    <zorder>c_dynamic_png</zorder>
-   <zorder>d_static_png</zorder>
-   <zorder>d_dynamic_png</zorder>
    <zorder>widget</zorder>
    <zorder>goal_node_label</zorder>
    <zorder>label_16</zorder>
+   <zorder>play_btn</zorder>
+   <zorder>pause_btn</zorder>
+   <zorder>slider</zorder>
+   <zorder>ts_txt</zorder>
+   <zorder>label_12</zorder>
+   <zorder>label_13</zorder>
+   <zorder>label_17</zorder>
+   <zorder>label_18</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1294,18 +1355,33 @@ font: 75 10pt &quot;Waree&quot;;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color:rgb(255, 121, 198);
-font: 12pt &quot;Ubuntu&quot;;</string>
+    <string notr="true">font: 12pt &quot;Ubuntu&quot;;
+color: rgb(183, 110, 255);</string>
    </property>
-   <widget class="QMenu" name="menuStreaming">
+   <widget class="QMenu" name="menuMonitoring">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
-     <string>Streaming</string>
+     <string>Monitoring</string>
     </property>
     <addaction name="actionReady"/>
+    <addaction name="actionRecord"/>
     <addaction name="actionStart"/>
     <addaction name="actionStop"/>
    </widget>
-   <addaction name="menuStreaming"/>
+   <widget class="QMenu" name="menuReplaying">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="title">
+     <string>Replaying</string>
+    </property>
+    <addaction name="actionReady_2"/>
+    <addaction name="actionStart_2"/>
+   </widget>
+   <addaction name="menuMonitoring"/>
+   <addaction name="menuReplaying"/>
   </widget>
   <action name="actionReady">
    <property name="text">
@@ -1320,6 +1396,21 @@ font: 12pt &quot;Ubuntu&quot;;</string>
   <action name="actionStop">
    <property name="text">
     <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionReady_2">
+   <property name="text">
+    <string>Ready</string>
+   </property>
+  </action>
+  <action name="actionStart_2">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="actionRecord">
+   <property name="text">
+    <string>Record</string>
    </property>
   </action>
  </widget>

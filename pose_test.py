@@ -37,8 +37,8 @@ from nav_msgs.msg import Odometry
 
 
 def p_test() :
-	pub = rospy.Publisher('/pose_test', Odometry, queue_size = 1)
-	rospy.init_node('pose_test', anonymous=True)
+	pub = rospy.Publisher('/pose', Odometry, queue_size = 1)
+	rospy.init_node('pose', anonymous=True)
 	r = rospy.Rate(10)
 	send_point = Odometry()
 	send_point.pose.pose.position.x = 126.654310

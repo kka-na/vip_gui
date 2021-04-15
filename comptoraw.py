@@ -17,7 +17,7 @@ def comptoraw(data) :
 
 def start_cam() :
 	print("erp cam starting and converted from compressed image to raw image")
-	command ="rosparam set /camera_erp/usb_cam/image_raw/compressed/jpeg_quality 10"
+	command ="rosparam set /camera_erp/usb_cam/image_raw/compressed/jpeg_quality 20"
 	command = shlex.split(command)
 	subprocess.Popen(command)
 	command ="roslaunch usb_cam usb_erp_cam.launch"

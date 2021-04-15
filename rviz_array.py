@@ -529,9 +529,9 @@ make_world()
 
 #================================Publishe, Subscribe, and Excution================================9**h*
 pub_array = rospy.Publisher('/map', MarkerArray, queue_size = 100, latch = True)
-pub_mouse = rospy.Publisher('/check', Marker, queue_size = 1, latch = True)
-pub_goal_pos = rospy.Publisher('/goal_pos', Point,  queue_size = 1)
-pub_goal_node = rospy.Publisher('/goal_node', String, queue_size=10)
+#pub_mouse = rospy.Publisher('/check', Marker, queue_size = 1, latch = True)
+#pub_goal_pos = rospy.Publisher('/goal_pos', Point,  queue_size = 1)
+#pub_goal_node = rospy.Publisher('/goal_node', String, queue_size=10)
 
 pub_start = rospy.Publisher('/start', Marker, queue_size = 1, latch = True)
 pub_start_pos = rospy.Publisher('/start_pos', Odometry, queue_size=1)
@@ -543,7 +543,7 @@ pub_distance = rospy.Publisher('/distance', Odometry, queue_size = 1)
 pub = rospy.Publisher('/vehicle', Marker, queue_size = 1)
 
 rospy.init_node("visualization",anonymous=True)
-rospy.Subscriber('/pose_test', Odometry, GPSIMU)
+rospy.Subscriber('/pose', Odometry, GPSIMU)
 rospy.Subscriber('/move_base_simple/goal', PoseStamped, findgoal) #have to change about drone
 rospy.Subscriber('/obstacles', Obstacles, obstacle)
 #rospy.Subscriber('/GPP', PointCloud, GPP)
